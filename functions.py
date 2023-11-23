@@ -99,7 +99,9 @@ def initialize_dqn(
     )
 
     model.policy.mlp_extractor.policy_net.apply(init_weights)
+    model.policy.action_net.apply(init_weights)
     model.policy.mlp_extractor.value_net.apply(init_weights)
+    model.policy.value_net.apply(init_weights)
     return model
 
 
@@ -138,7 +140,9 @@ def initialize_ppo(
         n_epochs=n_epochs,
     )
     model.policy.mlp_extractor.policy_net.apply(init_weights)
+    model.policy.action_net.apply(init_weights)
     model.policy.mlp_extractor.value_net.apply(init_weights)
+    model.policy.value_net.apply(init_weights)
     return model
 
 
@@ -168,3 +172,210 @@ def learning(
 def init_weights(m):
     if isinstance(m, nn.Linear):
         th.nn.init.xavier_uniform_(m.weight)
+
+
+def trajectory_creation(env, model, no, deterministic):
+    actions = []
+    states = []
+    for _ in range(no):
+        done = False
+        o = env.reset()
+        while done == False:
+            a, _ = model.predict(th.tensor(o), deterministic=deterministic)
+            states.append(o)
+            actions.append(int(a))
+            o, _, done, _ = env.step(int(a))
+    return (np.array(states), np.array(actions))
+
+
+def binary_seq(states, actions, program):
+    bin_seq = np.zeros(len(states), dtype=int)
+    for i, state in enumerate(states):
+        if (
+            program.predict_hierarchical(th.tensor(state).float(), epsilon=0.0)
+            == actions[i]
+        ):
+            bin_seq[i] = 1
+    return bin_seq
+
+
+def get_option_length(no_actions, binary_sequences):
+    """find best option length for each program"""
+    value = np.inf
+    o_l = None
+    max_length = len(max(binary_sequences, key=len))
+    for option_length in range(2, max_length):
+        total_expected_nodes = 0
+        break_flag = 0
+        for binary_sequence in binary_sequences:
+            counter = []
+            h = 0
+            for i in binary_sequence:
+                if i == 1:
+                    h += 1
+                else:
+                    if h >= option_length:
+                        counter.append(h)
+                    h = 0
+            if h >= option_length:
+                counter.append(h)
+
+            length = 0
+            for i in counter:
+                length += int(i / option_length)
+
+            if length == 0:
+                break_flag += 1
+
+            length = len(binary_sequence) + length * (1 - option_length)
+            total_expected_nodes += len(binary_sequence) * (no_actions**length)
+
+        if total_expected_nodes <= value:
+            value = total_expected_nodes
+            o_l = option_length
+
+        if break_flag == len(binary_sequences):
+            break
+
+    return o_l
+
+
+def get_option_program_length(states, actions, program, task_no, base_actions=3):
+    new_states = copy.deepcopy(states)
+    new_actions = copy.deepcopy(actions)
+
+    binary_sequences = []
+    for i, value in enumerate(new_states):
+        if i == task_no:
+            binary_sequences.append(np.zeros(len(actions[i])))
+            continue
+        sequence = binary_seq(value, new_actions[i], program)
+        binary_sequences.append(sequence)
+    return get_option_length(base_actions + 1, binary_sequences)
+
+
+def expected_nodes(no_actions, binary_sequences_lst):
+    no_actions = no_actions + len(binary_sequences_lst)
+    # find best option length for each program
+    option_lengths = []
+    for binary_sequences in binary_sequences_lst:
+        option_lengths.append(get_option_length(no_actions, binary_sequences))
+
+    # check for the best cover
+    table = []  # -> save d
+    no_trajectories = len(binary_sequences_lst[0])
+    no_options = len(option_lengths)
+    for i in range(no_trajectories):
+        no_steps = len(binary_sequences_lst[0][i])
+        table.append(np.full(no_steps + 1, np.inf))
+        table[i][0] = 0
+        for j in range(no_steps):
+            # checking trajectory i, step j -> update table[i][j]
+            for k in range(no_options):
+                counter = 0
+                for p in range(j, min(j + option_lengths[k], no_steps)):
+                    if binary_sequences_lst[k][i][p] == 1:
+                        counter += 1
+                if counter == option_lengths[k]:
+                    table[i][j + option_lengths[k]] = min(
+                        table[i][j + option_lengths[k]], table[i][j] + 1
+                    )
+            table[i][j + 1] = min(table[i][j + 1], table[i][j] + 1)
+
+    total_expected_nodes = 0
+    for i in table:
+        total_expected_nodes += (len(i) - 1) * (int(no_actions) ** int(i[-1]))
+
+    return (total_expected_nodes, option_lengths)
+
+
+def one_leave_out_val(states, actions, programs, task_no, base_actions=3):
+    new_states = copy.deepcopy(states)
+    new_actions = copy.deepcopy(actions)
+
+    binary_sequences_lst = []
+    for program in programs:
+        binary_sequences = []
+        for i, new_state in enumerate(new_states):
+            if i == task_no:
+                binary_sequences.append(np.zeros(len(actions[i])))
+                continue
+            sequence = binary_seq(new_state, new_actions[i], program)
+            binary_sequences.append(sequence)
+        binary_sequences_lst.append(binary_sequences)
+
+    return expected_nodes(base_actions, binary_sequences_lst)
+
+
+def get_top_k(k, states_lst, actions_lst, envs, program_stack, base_actions):
+    # phase one - leave one out style
+    programs = []
+    options = []
+    for i in range(len(envs)):
+        program_set = []
+        options_set = []
+        new_states_lst = copy.deepcopy(states_lst)
+        new_actions_lst = copy.deepcopy(actions_lst)
+        best_value = np.inf
+        for _ in range(k):
+            best = np.inf
+            best_i = None
+            best_j = None
+            best_options = None
+            for j in range(len(program_stack[i])):
+                value, option_lengths = one_leave_out_val(
+                    new_states_lst,
+                    new_actions_lst,
+                    program_set + [program_stack[i][j]],
+                    i,
+                    base_actions,
+                )
+                if value < best:
+                    best = value
+                    best_i = i
+                    best_j = j
+                    best_options = option_lengths
+
+            program_set.append(program_stack[best_i][best_j])
+            options_set = best_options
+
+            if best <= best_value:
+                best_value = best
+            else:
+                break
+        programs += program_set
+        options += options_set
+
+    # phase two - use all data
+    new_states_lst = copy.deepcopy(states_lst)
+    new_actions_lst = copy.deepcopy(actions_lst)
+    final_programs = []
+    option_sizes = []
+    best_value = np.inf
+    for _ in range(k):
+        best = np.inf
+        best_program = None
+        best_options = None
+
+        for program in programs:
+            value, option_lengths = one_leave_out_val(
+                new_states_lst,
+                new_actions_lst,
+                final_programs + [program],
+                -1,
+                base_actions,
+            )
+            if value < best:
+                best = value
+                best_program = program
+                best_options = option_lengths
+
+        if best < best_value:
+            best_value = best
+        else:
+            break
+
+        final_programs.append(best_program)
+        option_sizes = best_options
+
+    return final_programs, option_sizes
