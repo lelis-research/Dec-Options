@@ -7,4 +7,4 @@ mkdir -p $FOURROOMS_HARD_DIR
 
 CODE_LOCATION=/home/alikhasi/Dec-Options
 
-sbatch ./scripts/fourrooms_easy_training.sh $CODE_LOCATION $FOURROOMS_EASY_DIR
+sbatch ./fourrooms_easy_training.sh $CODE_LOCATION $FOURROOMS_EASY_DIR
