@@ -19,6 +19,7 @@ def main():
         choices=["TrainingTasks", "TestTasks"],
     )
     parser.add_argument("--config", help="config file")
+    parser.add_argument("--log_path", default="logs/")
     parser.add_argument("--baseline", default="baseline")
     args_p = parser.parse_args()
 
@@ -26,6 +27,8 @@ def main():
         c = json.load(f)
         training_args = c["TrainingTasks"]
         config = c[str(args_p.phase)]
+        training_args["log_path"] = args_p.log_path
+        config["log_path"] = args_p.log_path
 
     if config["task"] == "fourrooms":
         training_task = get_training_tasks_simplecross()
