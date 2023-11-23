@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --cpus-per-task=25   # maximum CPU cores per GPU request: 6 on Cedar, 16 on Graham.
 #SBATCH --mem=10G        # memory per node
-#SBATCH --time=0-6:00      # time (DD-HH:MM)
+#SBATCH --time=0-$4:00      # time (DD-HH:MM)
 #SBATCH --output=%N-%j.out  # %N for node name, %j for jobID
 #SBATCH --account=def-lelis
 #SBATCH --array=0-9
