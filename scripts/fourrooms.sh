@@ -11,4 +11,4 @@ CODE_LOCATION=/home/alikhasi/Dec-Options
 # training tasks
 sbatch ./fourrooms_training.sh $CODE_LOCATION $FOURROOMS_EASY_DIR
 # Parameter search for vanilla
-sbatch ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_EASY_DIR $BASELINE_VANILLA 3
+sbatch --time=0-3:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_EASY_DIR $BASELINE_VANILLA
