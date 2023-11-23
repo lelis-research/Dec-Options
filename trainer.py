@@ -36,7 +36,7 @@ def main():
     )
     parser.add_argument("--config", help="config file")
     parser.add_argument("--log_path", default="logs/")
-    parser.add_argument("--baseline", default="vanilla", choices=["vanilla"])
+    parser.add_argument("--baseline", default="Vanilla", choices=["Vanilla"])
     parser.add_argument("--parameter_sweep", default=False, type=bool)
     args_p = parser.parse_args()
 
