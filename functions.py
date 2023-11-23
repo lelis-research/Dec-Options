@@ -171,7 +171,7 @@ def learning(
 
 def init_weights(m):
     if isinstance(m, nn.Linear):
-        th.nn.init.xavier_uniform_(m.weight)
+        th.nn.init.xavier_normal_(m.weight)
 
 
 def trajectory_creation(env, model, no, deterministic):
