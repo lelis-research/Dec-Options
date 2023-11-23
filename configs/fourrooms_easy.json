@@ -37,5 +37,11 @@
         "clip_range": 0.2,
         "log_path": "logs/",
         "deterministic": "False"
-    }    
+    },
+    
+    "search_space":{
+        "clip_range": [0.1, 0.15, 0.2, 0.25, 0.3],
+        "ent_coef": [0.0, 0.05, 0.1, 0.15, 0.2],
+        "learning_rate": [0.005, 0.001, 0.0005, 0.0001, 0.00005]
+    }
 }
