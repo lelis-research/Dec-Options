@@ -56,5 +56,5 @@ def training_tasks_learning(training_envs, seed, training_tasks_args):
 
     for i, env in enumerate(training_envs):
         print(f"Task {i + 1}")
-        model_name = f"task{i + 1}_seed{training_tasks_args['seed']}"
+        model_name = f"task{i + 1}_seed{seed}"
         vanilla(env, model_name, seed, training_tasks_args)

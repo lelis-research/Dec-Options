@@ -23,8 +23,9 @@ def main():
     args_p = parser.parse_args()
 
     with open(args_p.config) as f:
-        training_args = json.load(f)["TrainingTasks"]
-        config = json.load(f)[args_p.phase]
+        c = json.load(f)
+        training_args = c["TrainingTasks"]
+        config = c[str(args_p.phase)]
 
     if config["task"] == "fourrooms":
         training_task = get_training_tasks_simplecross()

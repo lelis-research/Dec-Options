@@ -1,6 +1,7 @@
 {
     "TrainingTasks":{
         "task": "fourrooms",
+        "difficulty": 0,
         "network": [6],
         "vf": [256, 256, 256],
         "num_iterations": 100000,
