@@ -106,12 +106,12 @@ class MiniGridWrap(gym.Env):
 
 def get_training_tasks_simplecross():
     env_list = []
-    for i in range(3):
+    for i in [0, 5, 6]:
         env_list.append(
             MiniGridWrap(
                 gymnasium.make("MiniGrid-SimpleCrossingS9N1-v0"),
                 seed=i,
-                max_episode_steps=600,
+                max_episode_steps=1000,
                 step_reward=-1,
             )
         )
