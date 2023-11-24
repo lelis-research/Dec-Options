@@ -18,26 +18,26 @@ CODE_LOCATION=/home/alikhasi/Dec-Options
 
 # training tasks
 sbatch ./fourrooms_training.sh $CODE_LOCATION $FOURROOMS_EASY_DIR
-cp -rf $FOURROOMS_EASY_DIR/task1*_MOEDL* $FOURROOMS_MEDIUM_DIR
-cp -rf $FOURROOMS_EASY_DIR/task2*_MOEDL* $FOURROOMS_MEDIUM_DIR
-cp -rf $FOURROOMS_EASY_DIR/task3*_MOEDL* $FOURROOMS_MEDIUM_DIR
-cp -rf $FOURROOMS_EASY_DIR/task1*_MOEDL* $FOURROOMS_HARD_DIR
-cp -rf $FOURROOMS_EASY_DIR/task2*_MOEDL* $FOURROOMS_HARD_DIR
-cp -rf $FOURROOMS_EASY_DIR/task3*_MOEDL* $FOURROOMS_HARD_DIR
+cp -rf $FOURROOMS_EASY_DIR/task1*_MODEL* $FOURROOMS_MEDIUM_DIR
+cp -rf $FOURROOMS_EASY_DIR/task2*_MODEL* $FOURROOMS_MEDIUM_DIR
+cp -rf $FOURROOMS_EASY_DIR/task3*_MODEL* $FOURROOMS_MEDIUM_DIR
+cp -rf $FOURROOMS_EASY_DIR/task1*_MODEL* $FOURROOMS_HARD_DIR
+cp -rf $FOURROOMS_EASY_DIR/task2*_MODEL* $FOURROOMS_HARD_DIR
+cp -rf $FOURROOMS_EASY_DIR/task3*_MODEL* $FOURROOMS_HARD_DIR
 
 # Parameter search for vanilla
 sbatch --time=0-3:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_EASY_DIR $BASELINE_VANILLA $FOURROOMS_EASY_CONFIG
-sbatch --time=0-5:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_EASY_DIR $NeuralAugmented $FOURROOMS_EASY_CONFIG
+sbatch --time=0-5:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_EASY_DIR $BASELINE_NeuralAugmented $FOURROOMS_EASY_CONFIG
 sbatch --time=0-6:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_EASY_DIR $BASELINE_DecOptionsWhole $FOURROOMS_EASY_CONFIG
 sbatch --time=0-7:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_EASY_DIR $BASELINE_DecOptions $FOURROOMS_EASY_CONFIG
 
 sbatch --time=0-3:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_MEDIUM_DIR $BASELINE_VANILLA $FOURROOMS_MEDIUM_CONFIG
-sbatch --time=0-5:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_MEDIUM_DIR $NeuralAugmented $FOURROOMS_MEDIUM_CONFIG
+sbatch --time=0-5:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_MEDIUM_DIR $BASELINE_NeuralAugmented $FOURROOMS_MEDIUM_CONFIG
 sbatch --time=0-6:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_MEDIUM_DIR $BASELINE_DecOptionsWhole $FOURROOMS_MEDIUM_CONFIG
 sbatch --time=0-7:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_MEDIUM_DIR $BASELINE_DecOptions $FOURROOMS_MEDIUM_CONFIG
 
 sbatch --time=0-3:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_HARD_DIR $BASELINE_VANILLA $FOURROOMS_HARD_CONFIG
-sbatch --time=0-5:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_HARD_DIR $NeuralAugmented $FOURROOMS_HARD_CONFIG
+sbatch --time=0-5:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_HARD_DIR $BASELINE_NeuralAugmented $FOURROOMS_HARD_CONFIG
 sbatch --time=0-6:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_HARD_DIR $BASELINE_DecOptionsWhole $FOURROOMS_HARD_CONFIG
 sbatch --time=0-7:00 ./fourrooms_parameter_search.sh $CODE_LOCATION $FOURROOMS_HARD_DIR $BASELINE_DecOptions $FOURROOMS_HARD_CONFIG
 
