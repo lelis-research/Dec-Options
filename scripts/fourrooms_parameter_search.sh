@@ -7,4 +7,4 @@
 
 source ~/minigrid/bin/activate
 
-python3 $1/trainer.py --seed $SLURM_ARRAY_TASK_ID --algorithm PPO --baseline $3 --phase TestTasks --parameter_sweep True --config $1/configs/fourrooms_easy.json --log_path $2
+python3 $1/trainer.py --seed $SLURM_ARRAY_TASK_ID --algorithm PPO --baseline $3 --phase TestTasks --parameter_sweep True --config $1/configs/$4 --log_path $2

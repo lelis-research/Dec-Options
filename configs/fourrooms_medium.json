@@ -1,0 +1,47 @@
+{
+    "TrainingTasks":{
+        "task": "fourrooms",
+        "difficulty": 1,
+        "network": [7],
+        "vf": [200, 200, 200],
+        "num_iterations": 100000,
+        "gamma": 1.0,
+        "gae_lambda": 0.95,
+        "rollout_length": 128,
+        "num_worker": 6,
+        "n_epochs": 16,
+        "n_eval_episodes": 5,
+        "eval_freq": 10000,
+        "learning_rate": 0.0001,
+        "ent_coef": 0.01,
+        "clip_range": 0.10,
+        "log_path": "logs/",
+        "deterministic": "False"
+    },
+
+    "TestTasks":{
+        "task": "fourrooms",
+        "difficulty": 1,
+        "network": [50, 50, 50],
+        "vf": [256, 256, 256],
+        "num_iterations": 30000,
+        "gamma": 0.99,
+        "gae_lambda": 0.95,
+        "rollout_length": 128,
+        "num_worker": 4,
+        "n_epochs": 8,
+        "n_eval_episodes": 5,
+        "eval_freq": 1000,
+        "learning_rate": 0.0001,
+        "ent_coef": 0.05,
+        "clip_range": 0.2,
+        "log_path": "logs/",
+        "deterministic": "False"
+    },
+    
+    "search_space":{
+        "clip_range": [0.1, 0.15, 0.2, 0.25, 0.3],
+        "ent_coef": [0.0, 0.05, 0.1, 0.15, 0.2],
+        "learning_rate": [0.005, 0.001, 0.0005, 0.0001, 0.00005]
+    }
+}
