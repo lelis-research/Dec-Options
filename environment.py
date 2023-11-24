@@ -28,7 +28,9 @@ class MasterEnv(gym.Env):
 
     def __deepcopy__(self, memo):
         # Create a new instance of the class with shallow copies of all attributes
-        new_obj = self.__class__(self.env, self.deterministic)
+        new_obj = self.__class__(
+            self.env, self.option_sizes, self.options, self.deterministic
+        )
         # Add the new object to the memo dictionary
         memo[id(self)] = new_obj
         # Shallow copy the 'shallow_copy_me' attribute
