@@ -54,8 +54,8 @@ class CustomCallback(BaseCallback):
 
                 reward_list.append(c_reward)
             self.y_axis.append(np.array(reward_list).mean())
-            np.save(self.log_path + self.model_name + "_x", np.array(self.x_axis))
-            np.save(self.log_path + self.model_name + "_y", np.array(self.y_axis))
+            # np.save(self.log_path + self.model_name + "_x", np.array(self.x_axis))
+            # np.save(self.log_path + self.model_name + "_y", np.array(self.y_axis))
         return True
 
     def _on_training_end(self) -> None:
