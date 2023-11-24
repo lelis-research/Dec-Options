@@ -137,6 +137,7 @@ def initialize_ppo(
         seed=seed,
         verbose=0,
         clip_range=clip_range,
+        clip_range_vf=clip_range,
         n_epochs=n_epochs,
     )
     model.policy.mlp_extractor.policy_net.apply(init_weights)

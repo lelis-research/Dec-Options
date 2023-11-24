@@ -111,7 +111,7 @@ def get_training_tasks_simplecross():
             MiniGridWrap(
                 gymnasium.make("MiniGrid-SimpleCrossingS9N1-v0"),
                 seed=i,
-                max_episode_steps=1000,
+                max_episode_steps=600,
                 step_reward=-1,
             )
         )
