@@ -15,7 +15,7 @@ class basic_actions:
 
 
 class MasterEnv(gym.Env):
-    def __init__(self, env, deterministic=True, option_sizes=None, options=None):
+    def __init__(self, env, option_sizes, options, deterministic=True):
         # basic actions are options with size 1
         self.env = env
         self.options = options
