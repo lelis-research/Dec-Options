@@ -21,7 +21,11 @@ def main():
     )
     parser.add_argument("--config", help="config file")
     parser.add_argument("--log_path", default="logs/")
-    parser.add_argument("--baseline", default="Vanilla", choices=["Vanilla"])
+    parser.add_argument(
+        "--baseline",
+        default="Vanilla",
+        choices=["Vanilla", "NeuralAugmented", "DecOptionsWhole", "DecOptions"],
+    )
     parser.add_argument("--parameter_sweep", default=False, type=bool)
     args_p = parser.parse_args()
 
@@ -46,7 +50,12 @@ def main():
 
     if args_p.phase == "TestTasks":
         test_tasks(
-            args_p, hyperparameter_seach_space, config, len(training_tasks) + 1, env
+            args_p,
+            hyperparameter_seach_space,
+            config,
+            len(training_tasks) + 1,
+            env,
+            training_tasks,
         )
 
 
