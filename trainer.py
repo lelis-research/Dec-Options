@@ -21,6 +21,9 @@ def main():
     )
     parser.add_argument("--config", help="config file")
     parser.add_argument("--log_path", default="logs/")
+    parser.add_argument("--clip_range", default="0.2")
+    parser.add_argument("--ent_coef", default="0.05")
+    parser.add_argument("--learning_rate", default="0.0001")
     parser.add_argument(
         "--baseline",
         default="Vanilla",
@@ -49,6 +52,9 @@ def main():
         return
 
     if args_p.phase == "TestTasks":
+        config["clip_range"] = args_p.clip_range
+        config["ent_coef"] = args_p.ent_coef
+        config["learning_rate"] = args_p.learning_rate
         test_tasks(
             args_p,
             hyperparameter_seach_space,
