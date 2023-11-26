@@ -49,7 +49,7 @@ def main():
         env = get_test_tasks_fourrooms()[config["difficulty"]]
     elif config["task"] == "combogrid":
         training_tasks = get_training_tasks_combo4(config["size"])
-        env = get_test_task_combo4([config["size"]])
+        env = get_test_task_combo4(config["size"])
 
     if args_p.phase == "TrainingTasks":
         training_tasks_learning(training_tasks, args_p.seed, training_args)
