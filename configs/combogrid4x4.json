@@ -13,7 +13,7 @@
         "n_eval_episodes": 5,
         "eval_freq": 10000,
         "learning_rate": 0.0005,
-        "ent_coef": 0.01,
+        "ent_coef": 0.05,
         "clip_range": 0.1,
         "log_path": "logs/",
         "deterministic": "True"
