@@ -21,9 +21,9 @@ def main():
     )
     parser.add_argument("--config", help="config file")
     parser.add_argument("--log_path", default="logs/")
-    parser.add_argument("--clip_range", default="0.2")
-    parser.add_argument("--ent_coef", default="0.05")
-    parser.add_argument("--learning_rate", default="0.0001")
+    parser.add_argument("--clip_range", default="0.2", type=float)
+    parser.add_argument("--ent_coef", default="0.05", type=float)
+    parser.add_argument("--learning_rate", default="0.0001", type=float)
     parser.add_argument(
         "--baseline",
         default="Vanilla",
