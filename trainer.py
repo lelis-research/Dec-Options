@@ -39,6 +39,10 @@ def main():
         hyperparameter_seach_space = c["search_space"]
         training_args["log_path"] = args_p.log_path
         config["log_path"] = args_p.log_path
+        if config["deterministic"] == "False":
+            config["deterministic"] = False
+        else:
+            config["deterministic"] = True
 
     if config["task"] == "fourrooms":
         training_tasks = get_training_tasks_simplecross()
