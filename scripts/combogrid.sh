@@ -47,22 +47,22 @@ cp -rf $COMBOGRID5X5_DIR/task4_seed29_MODEL.zip $COMBOGRID5X5_DIR/task4_seed26_M
 cp -rf $COMBOGRID6X6_DIR/task2_seed0_MODEL.zip $COMBOGRID6X6_DIR/task2_seed28_MODEL.zip
 
 # Parameter search
-sbatch --time=0-3:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID3X3_DIR $BASELINE_VANILLA $COMBOGRID3X3_CONFIG
-sbatch --time=0-5:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID3X3_DIR $BASELINE_NeuralAugmented $COMBOGRID3X3_CONFIG
-sbatch --time=0-6:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID3X3_DIR $BASELINE_DecOptionsWhole $COMBOGRID3X3_CONFIG
-sbatch --time=0-7:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID3X3_DIR $BASELINE_DecOptions $COMBOGRID3X3_CONFIG
+sbatch --time=0-3:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID3X3_DIR $BASELINE_VANILLA $COMBOGRID3X3_CONFIG
+sbatch --time=0-5:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID3X3_DIR $BASELINE_NeuralAugmented $COMBOGRID3X3_CONFIG
+sbatch --time=0-6:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID3X3_DIR $BASELINE_DecOptionsWhole $COMBOGRID3X3_CONFIG
+sbatch --time=0-7:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID3X3_DIR $BASELINE_DecOptions $COMBOGRID3X3_CONFIG
 
-sbatch --time=0-3:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID4X4_DIR $BASELINE_VANILLA $COMBOGRID4X4_CONFIG
-sbatch --time=0-5:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID4X4_DIR $BASELINE_NeuralAugmented $COMBOGRID4X4_CONFIG
-sbatch --time=0-6:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID4X4_DIR $BASELINE_DecOptionsWhole $COMBOGRID4X4_CONFIG
-sbatch --time=0-7:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID4X4_DIR $BASELINE_DecOptions $COMBOGRID4X4_CONFIG
+sbatch --time=0-3:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID4X4_DIR $BASELINE_VANILLA $COMBOGRID4X4_CONFIG
+sbatch --time=0-5:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID4X4_DIR $BASELINE_NeuralAugmented $COMBOGRID4X4_CONFIG
+sbatch --time=0-6:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID4X4_DIR $BASELINE_DecOptionsWhole $COMBOGRID4X4_CONFIG
+sbatch --time=0-7:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID4X4_DIR $BASELINE_DecOptions $COMBOGRID4X4_CONFIG
 
-sbatch --time=0-3:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID5X5_DIR $BASELINE_VANILLA $COMBOGRID5X5_CONFIG
-sbatch --time=0-5:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID5X5_DIR $BASELINE_NeuralAugmented $COMBOGRID5X5_CONFIG
-sbatch --time=0-6:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID5X5_DIR $BASELINE_DecOptionsWhole $COMBOGRID5X5_CONFIG
-sbatch --time=0-7:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID5X5_DIR $BASELINE_DecOptions $COMBOGRID5X5_CONFIG
+sbatch --time=0-3:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID5X5_DIR $BASELINE_VANILLA $COMBOGRID5X5_CONFIG
+sbatch --time=0-5:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID5X5_DIR $BASELINE_NeuralAugmented $COMBOGRID5X5_CONFIG
+sbatch --time=0-6:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID5X5_DIR $BASELINE_DecOptionsWhole $COMBOGRID5X5_CONFIG
+sbatch --time=0-7:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID5X5_DIR $BASELINE_DecOptions $COMBOGRID5X5_CONFIG
 
-sbatch --time=0-3:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID6X6_DIR $BASELINE_VANILLA $COMBOGRID6X6_CONFIG
-sbatch --time=0-5:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID6X6_DIR $BASELINE_NeuralAugmented $COMBOGRID6X6_CONFIG
-sbatch --time=0-6:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID6X6_DIR $BASELINE_DecOptionsWhole $COMBOGRID6X6_CONFIG
-sbatch --time=0-7:00 ./combogrid_parameter_search.sh $CODE_LOCATION $COMBOGRID6X6_DIR $BASELINE_DecOptions $COMBOGRID6X6_CONFIG
+sbatch --time=0-3:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID6X6_DIR $BASELINE_VANILLA $COMBOGRID6X6_CONFIG
+sbatch --time=0-5:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID6X6_DIR $BASELINE_NeuralAugmented $COMBOGRID6X6_CONFIG
+sbatch --time=0-6:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID6X6_DIR $BASELINE_DecOptionsWhole $COMBOGRID6X6_CONFIG
+sbatch --time=0-7:00 ./parameter_search.sh $CODE_LOCATION $COMBOGRID6X6_DIR $BASELINE_DecOptions $COMBOGRID6X6_CONFIG
