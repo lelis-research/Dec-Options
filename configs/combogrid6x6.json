@@ -24,7 +24,7 @@
         "size": 6,
         "network": [16],
         "vf": [200, 200, 200],
-        "num_iterations": 15000,
+        "num_iterations": 30000,
         "gamma": 0.99,
         "gae_lambda": 0.95,
         "rollout_length": 128,
