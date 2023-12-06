@@ -242,7 +242,7 @@ class TestTask(ComboGridWorld):
             self.state = np.copy(next_state)
 
         reward = 0
-        terminal = False
+        is_terminal = False
 
         for i, terminal in enumerate(self.terminals):
             if (self.state == terminal).all():
@@ -251,9 +251,9 @@ class TestTask(ComboGridWorld):
                 break
 
         if len(self.terminals) == 0:
-            terminal = True
+            is_terminal = True
 
-        return (terminal, reward)
+        return (is_terminal, reward)
 
     def reset(self):
         self.set_terminal()
