@@ -69,7 +69,7 @@ class ComboGridWorld(gym.Env):
         one_hot_encode = np.zeros((self.size - 2, self.size - 2))
         one_hot_encode[self.state[0] - 1][self.state[1] - 1] = 1
         one_hot_encode_terminal = np.zeros((self.size - 2, self.size - 2))
-        one_hot_encode_terminal[self.terminal[0] - 1][self.terminal[1] - 1] = 1
+        # one_hot_encode_terminal[self.terminal[0] - 1][self.terminal[1] - 1] = 1
         return np.concatenate((one_hot_encode, one_hot_encode_terminal)).flatten()
 
     def normalize_a(self, actions):

@@ -2,7 +2,7 @@
     "TrainingTasks":{
         "task": "fourrooms",
         "difficulty": 0,
-        "network": [7],
+        "network": [6],
         "vf": [200, 200, 200],
         "num_iterations": 100000,
         "gamma": 1.0,
